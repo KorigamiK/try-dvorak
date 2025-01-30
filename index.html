@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Programmer Dvorak - Interactive</title>
+    <style>
+      :root {
+        --bg-color: #1f1f28; /* base00 */
+        --keyboard-bg: #2a2a35; /* darker shade */
+        --key-bg: #3b3b4d; /* darker grey */
+        --key-border: #5c5c6e; /* darker border */
+        --key-text: #dcd7ba; /* base07 */
+        --shift-char-color: #c8c3a6; /* darker border */
+        --active-border: #4a4a5f; /* darker shade */
+        --key-hover-bg: #7fb4ca; /* base0C */
+      }
+
+      body {
+        background-color: var(--bg-color);
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        font-family: "Berkeley Mono", monospace;
+      }
+
+      .keyboard {
+        background-color: var(--keyboard-bg);
+        padding: 2rem;
+        border-radius: 12px;
+      }
+
+      .row {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 0.8rem;
+        gap: 0.8rem;
+      }
+
+      .key {
+        background-color: var(--key-bg);
+        border: 1px solid var(--key-border);
+        border-radius: 6px;
+        padding: 1.2rem 1rem;
+        min-width: 50px;
+        text-align: center;
+        position: relative;
+        transition: all 0.1s ease;
+        color: var(--key-text);
+        cursor: default;
+        font-size: 1.2rem; /* increased for better readability */
+      }
+
+      .main-char {
+        font-size: 1.4rem;
+        font-weight: 500;
+      }
+
+      .shift-char {
+        position: absolute;
+        top: 4px;
+        right: 6px;
+        font-size: 0.8rem;
+        color: var(--shift-char-color);
+        opacity: 0.7;
+      }
+
+      .spacebar {
+        min-width: 440px;
+        padding: 1.2rem 2rem;
+      }
+
+      .key.active {
+        background-color: var(--active-bg);
+        border-color: var(--active-border);
+        box-shadow: 0 0 8px var(--active-shadow);
+      }
+
+      .key:not(.active):hover {
+        background-color: var(--key-hover-bg);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="keyboard">
+      <!-- Number Row -->
+      <div class="row">
+        <div class="key" data-main="%" data-shift="~">
+          <span class="shift-char">~</span><span class="main-char">%</span>
+        </div>
+        <div class="key" data-main="7" data-shift="#">
+          <span class="shift-char">#</span><span class="main-char">7</span>
+        </div>
+        <div class="key" data-main="5" data-shift="5">
+          <span class="shift-char">5</span><span class="main-char">5</span>
+        </div>
+        <div class="key" data-main="3" data-shift="3">
+          <span class="shift-char">3</span><span class="main-char">3</span>
+        </div>
+        <div class="key" data-main="1" data-shift="1">
+          <span class="shift-char">1</span><span class="main-char">1</span>
+        </div>
+        <div class="key" data-main="9" data-shift="9">
+          <span class="shift-char">9</span><span class="main-char">9</span>
+        </div>
+        <div class="key" data-main="0" data-shift="0">
+          <span class="shift-char">0</span><span class="main-char">0</span>
+        </div>
+        <div class="key" data-main="2" data-shift="2">
+          <span class="shift-char">2</span><span class="main-char">2</span>
+        </div>
+        <div class="key" data-main="4" data-shift="4">
+          <span class="shift-char">4</span><span class="main-char">4</span>
+        </div>
+        <div class="key" data-main="6" data-shift="6">
+          <span class="shift-char">6</span><span class="main-char">6</span>
+        </div>
+        <div class="key" data-main="8" data-shift="8">
+          <span class="shift-char">8</span><span class="main-char">8</span>
+        </div>
+        <div class="key" data-main="}" data-shift="*">
+          <span class="shift-char">*</span><span class="main-char">}</span>
+        </div>
+      </div>
+
+      <!-- Top Row -->
+      <div class="row">
+        <div class="key" data-main="Tab">Tab</div>
+        <div class="key" data-main="'" data-shift='"'>
+          <span class="shift-char">"</span><span class="main-char">'</span>
+        </div>
+        <div class="key" data-main="," data-shift="<">
+          <span class="shift-char"><</span><span class="main-char">,</span>
+        </div>
+        <div class="key" data-main="." data-shift=">">
+          <span class="shift-char">></span><span class="main-char">.</span>
+        </div>
+        <div class="key" data-main="p" data-shift="P">
+          <span class="shift-char">P</span><span class="main-char">p</span>
+        </div>
+        <div class="key" data-main="y" data-shift="Y">
+          <span class="shift-char">Y</span><span class="main-char">y</span>
+        </div>
+        <div class="key" data-main="f" data-shift="F">
+          <span class="shift-char">F</span><span class="main-char">f</span>
+        </div>
+        <div class="key" data-main="g" data-shift="G">
+          <span class="shift-char">G</span><span class="main-char">g</span>
+        </div>
+        <div class="key" data-main="c" data-shift="C">
+          <span class="shift-char">C</span><span class="main-char">c</span>
+        </div>
+        <div class="key" data-main="r" data-shift="R">
+          <span class="shift-char">R</span><span class="main-char">r</span>
+        </div>
+        <div class="key" data-main="l" data-shift="L">
+          <span class="shift-char">L</span><span class="main-char">l</span>
+        </div>
+        <div class="key" data-main="=" data-shift="+">
+          <span class="shift-char">+</span><span class="main-char">=</span>
+        </div>
+      </div>
+
+      <!-- Home Row -->
+      <div class="row">
+        <div class="key" data-main="Caps">Caps</div>
+        <div class="key" data-main="a" data-shift="A">
+          <span class="shift-char">A</span><span class="main-char">a</span>
+        </div>
+        <div class="key" data-main="o" data-shift="O">
+          <span class="shift-char">O</span><span class="main-char">o</span>
+        </div>
+        <div class="key" data-main="e" data-shift="E">
+          <span class="shift-char">E</span><span class="main-char">e</span>
+        </div>
+        <div class="key" data-main="u" data-shift="U">
+          <span class="shift-char">U</span><span class="main-char">u</span>
+        </div>
+        <div class="key" data-main="i" data-shift="I">
+          <span class="shift-char">I</span><span class="main-char">i</span>
+        </div>
+        <div class="key" data-main="d" data-shift="D">
+          <span class="shift-char">D</span><span class="main-char">d</span>
+        </div>
+        <div class="key" data-main="h" data-shift="H">
+          <span class="shift-char">H</span><span class="main-char">h</span>
+        </div>
+        <div class="key" data-main="t" data-shift="T">
+          <span class="shift-char">T</span><span class="main-char">t</span>
+        </div>
+        <div class="key" data-main="n" data-shift="N">
+          <span class="shift-char">N</span><span class="main-char">n</span>
+        </div>
+        <div class="key" data-main="s" data-shift="S">
+          <span class="shift-char">S</span><span class="main-char">s</span>
+        </div>
+        <div class="key" data-main="-" data-shift="\<">
+          <span class="shift-char">\</span><span class="main-char">-</span>
+        </div>
+      </div>
+
+      <!-- Bottom Row -->
+      <div class="row">
+        <div class="key" data-main="Shift">Shift</div>
+        <div class="key" data-main=";" data-shift=":">
+          <span class="shift-char">:</span><span class="main-char">;</span>
+        </div>
+        <div class="key" data-main="q" data-shift="Q">
+          <span class="shift-char">Q</span><span class="main-char">q</span>
+        </div>
+        <div class="key" data-main="j" data-shift="J">
+          <span class="shift-char">J</span><span class="main-char">j</span>
+        </div>
+        <div class="key" data-main="k" data-shift="K">
+          <span class="shift-char">K</span><span class="main-char">k</span>
+        </div>
+        <div class="key" data-main="x" data-shift="X">
+          <span class="shift-char">X</span><span class="main-char">x</span>
+        </div>
+        <div class="key" data-main="b" data-shift="B">
+          <span class="shift-char">B</span><span class="main-char">b</span>
+        </div>
+        <div class="key" data-main="m" data-shift="M">
+          <span class="shift-char">M</span><span class="main-char">m</span>
+        </div>
+        <div class="key" data-main="w" data-shift="W">
+          <span class="shift-char">W</span><span class="main-char">w</span>
+        </div>
+        <div class="key" data-main="v" data-shift="V">
+          <span class="shift-char">V</span><span class="main-char">v</span>
+        </div>
+        <div class="key" data-main="z" data-shift="Z">
+          <span class="shift-char">Z</span><span class="main-char">z</span>
+        </div>
+        <div class="key" data-main="Shift">Shift</div>
+      </div>
+
+      <!-- Space Row -->
+      <div class="row">
+        <div class="key" data-main="Ctrl">Ctrl</div>
+        <div class="key" data-main="Win">Win</div>
+        <div class="key" data-main="Alt">Alt</div>
+        <div class="key spacebar" data-main=" "></div>
+        <div class="key" data-main="Alt">Alt</div>
+        <div class="key" data-main="Win">Win</div>
+        <div class="key" data-main="Menu">Menu</div>
+        <div class="key" data-main="Ctrl">Ctrl</div>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener("keydown", (e) => {
+        const key = e.key;
+        const shift = e.shiftKey;
+        const keyMap = {
+          Control: "Ctrl",
+          Meta: "Win",
+          ContextMenu: "Menu",
+          CapsLock: "Caps",
+          " ": " ",
+        };
+        const normalizedKey = keyMap[key] || key;
+
+        document.querySelectorAll(".key").forEach((k) => {
+          const mainKey = k.dataset.main;
+          const shiftKey = k.dataset.shift;
+          if (
+            (shift && shiftKey === normalizedKey) ||
+            (!shift && mainKey === normalizedKey)
+          ) {
+            k.classList.add("active");
+          }
+        });
+      });
+
+      document.addEventListener("keyup", () => {
+        document.querySelectorAll(".key").forEach((k) => {
+          k.classList.remove("active");
+        });
+      });
+    </script>
+  </body>
+</html>
